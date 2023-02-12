@@ -1,7 +1,8 @@
 from flask import Flask
 from flask import render_template
 
-app = Flask(__name__,template_folder='../Frontend')
+PATH_FRONT = '../Angular/horizon-fe/src/'
+app = Flask(__name__,template_folder=PATH_FRONT)
 
 
 @app.route('/')

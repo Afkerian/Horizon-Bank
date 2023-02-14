@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Cliente } from 'src/app/models/Cliente'
-import { Router, ActivatedRoute } from '@angular/router'
+import { Cliente } from '../../../../src/app/models/Cliente';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ClientesService } from '../../services/cliente.service';
 

@@ -7,8 +7,7 @@ import { CrearClienteComponente} from './component/crear-cliente/crear-cliente.c
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/clientes',
-    pathMatch: 'full'
+    component: CrearClienteComponente
   },
   {
     path: 'clientes',

@@ -35,7 +35,7 @@ def validar_cedula(cedula):
 
     return total == digito_verificador
 
-def user_exists(cedula, check, db):
+def user_exists(cedula, db):
     usuarios = db['usuarios']
     resultado = usuarios.find_one({'cedula': cedula})
 

@@ -1,6 +1,6 @@
 <div class="col-md-4" *ngFor="let cliente of clientes">
-    <div class="card text-center">
-        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+    <div class="card-header">
+        <div class="card-header bg-blue text-black d-flex justify-content-between align-items-center">
             {{cliente.nombre}}
             <button class="btn btn-danger" (click)="deleteCliente(cliente.id)">
                 <i class="far fa-trash-alt"></i>
@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
             <p>{{cliente.monto}}</p>
-            <a [routerLink]="['/clientes-edit', cliente.id]" class="btn btn-info btn-block">
+            <a [routerLink]="['/clientes-edit', cliente.id]" class="btn btn-info btn-danger">
                 Editar Usuario
             </a>
         </div>

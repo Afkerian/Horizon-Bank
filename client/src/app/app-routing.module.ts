@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ListarClienteComponent } from './component/listar-cliente/listar-cliente.component';
 import { CrearClienteComponente} from './component/crear-cliente/crear-cliente.component';
+import { NavigationComponent } from './component/navigation/navigation.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'clientes/edit/:id',
     component: ListarClienteComponent
+  },
+  {
+    path: 'clientes/navigation',
+    component: NavigationComponent
   }
 ];
 @NgModule({

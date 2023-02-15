@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
-import { Cliente } from '../models/Cliente';
+import { Cliente } from '../models/clientes';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientesService {
+export class ClienteService {
 
   API_URI = 'http://localhost:3000/api';
 

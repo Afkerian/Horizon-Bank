@@ -11,7 +11,7 @@ conectarDB();
 
 app.use(express.json());
 
-app.use('/api/users', require('./routes/user'));
+app.use('/api/usuarios', require('./routes/user'));
 
 //Ruta principal
 // app.get('/', (req,res) => {

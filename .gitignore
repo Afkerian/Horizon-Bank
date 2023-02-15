@@ -27,3 +27,6 @@ horizon_venv/
 
 # #DataBase
 # Horizon-BankDB/
+
+# Mongo y Servidor Express
+servidor/

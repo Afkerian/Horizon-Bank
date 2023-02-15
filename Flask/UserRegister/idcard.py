@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-
+from Users import user_check
 
 def validar_cedula(cedula):
     """
@@ -45,5 +45,6 @@ def user_exists(cedula, db):
     else:
         print('El número de cédula {} no existe en la base de datos.'.format(cedula))
         return False
+
 
 

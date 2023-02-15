@@ -4,6 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from '../../../../src/app/models/clientes';
 import { ClienteService } from 'src/app/services/cliente.service';
+=======
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { Cliente } from '../../../../src/app/models/Cliente';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { ClientesService } from '../../services/cliente.service';
+>>>>>>> 01a88ca870737a5de95cf13003f6b42a88472a5c
 
 @Component({
   selector: 'app-crear-cliente',

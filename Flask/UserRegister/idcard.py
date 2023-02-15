@@ -38,7 +38,7 @@ def validar_cedula(cedula):
 def user_exists(cedula, db):
     usuarios = db['usuarios']
     resultado = usuarios.find_one({'cedula': cedula})
-
+    
     if resultado is not None:
         print('El número de cédula {} ya existe en la base de datos.'.format(cedula))
         return True

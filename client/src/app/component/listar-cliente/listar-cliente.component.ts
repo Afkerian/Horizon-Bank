@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 
-import { ClientesService } from '../../services/cliente.service';
+import { ClienteService } from '../../services/cliente.service';
 
 @Component({
   selector: 'app-listar-cliente',
@@ -12,14 +12,14 @@ export class ListarClienteComponent implements OnInit{
   @HostBinding('class') classes = 'row';
   clientes: any = [];
 
-  constructor(private clientesService: ClientesService){}
+  constructor(private clienteService: ClienteService){}
 
   ngOnInit(){
     this.getClientes();
   }
 
   getClientes(){
-    this.clientesService.getClientes().subscribe(
+    this.clienteService.getClientes().subscribe(
       res => {
         this.clientes = res;
       },
@@ -28,7 +28,7 @@ export class ListarClienteComponent implements OnInit{
   }
 
   deleteCliente(id:string){
-    this.clientesService.deleteCliente(id).subscribe(
+    this.clienteService.deleteCliente(id).subscribe(
       res => {
         console.log(res);
         this.getClientes();

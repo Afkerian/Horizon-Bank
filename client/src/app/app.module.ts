@@ -1,33 +1,34 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
-import { FormsModule } from '@angular/forms'
-import { AppRoutingModule} from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavigationComponent } from './component/navigation/navigation.component';
-import { CrearClienteComponente} from './component/crear-cliente/crear-cliente.component';
-import { ListarClienteComponent} from './component/listar-cliente/listar-cliente.component';
+import { NgModule } from '@angular/core';
 
-import { ClientesService } from './services/cliente.service'
+import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http'
+
+// Componentes
+import { AppComponent } from './app.component';
+import { CrearClienteComponent } from './component/crear-cliente/crear-cliente.component';
+import { ListarClienteComponent } from './component/listar-cliente/listar-cliente.component';
 
 @NgModule({
   declarations: [
-
     AppComponent,
-    NavigationComponent,
-    CrearClienteComponente,
+    CrearClienteComponent,
     ListarClienteComponent
   ],
   imports: [
     BrowserModule,
-
     AppRoutingModule,
-    HttpClientModule,
-    FormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    HttpClientModule
   ],
-  providers: [
-    ClientesService
-  ],
+
+
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

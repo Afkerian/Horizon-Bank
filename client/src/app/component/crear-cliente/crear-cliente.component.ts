@@ -1,67 +1,71 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
-import { Cliente } from 'src/app/models/Cliente'
-import { Router, ActivatedRoute } from '@angular/router'
-
-import { ClientesService } from '../../services/cliente.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Cliente } from '../../../../src/app/models/clientes';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-crear-cliente',
   templateUrl: './crear-cliente.component.html',
-  styleUrls: ['./crear-cliente.component.css']
+  //styleUrls: ['./crear-cliente.component.css']
 })
-export class CrearClienteComponente implements OnInit {
-  @HostBinding('class') classes = 'row';
-
-  cliente: Cliente = {
-    id: 0,
-    nombre: "",
-    tipoCuenta: "",
-    monto: 0
-  };
-
-  edit:boolean = false;
-
-  constructor(private clienteService: ClientesService, private router: Router, private activatedRoute: ActivatedRoute) {
+export class CrearClienteComponent implements OnInit {
+  clienteForm: FormGroup;
+  titulo = 'Crear Cliente';
+  id: string | null;
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private toastr: ToastrService,
+              private _clienteService: ClienteService,
+              private aRouter: ActivatedRoute) { 
+    this.clienteForm = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      tipocuenta: ['', Validators.required],
+      monto: ['', Validators.required],
+    })
+    this.id = this.aRouter.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
-    const params = this.activatedRoute.snapshot.params;
-    if (params['id']){
-      this.clienteService.getCliente(params['id'])
-        .subscribe(
-          res => {
-            console.log(res);
-            this.cliente = res;
-            this.edit = true;
-          },
-          err => console.error(err)
-        )
+    this.esEditar();
+  }
+
+  agregarCliente() {
+
+    const CLIENTE: Cliente = {
+      nombre: this.clienteForm.get('nombre')?.value,
+      apellido: this.clienteForm.get('apellido')?.value,
+      tipoCuenta: this.clienteForm.get('tipo de cuenta')?.value,
+      monto: this.clienteForm.get('monto')?.value,
+    }
+
+    console.log(CLIENTE);
+    this._clienteService.guardarCliente(CLIENTE).subscribe(data => {
+      this.toastr.success('Cliente registrado con exito!','Cliente Registrado');
+      this.router.navigate(['/']);
+    }, error => {
+      console.log(error);
+      this.clienteForm.reset();
+    })
+
+  
+  }
+
+  esEditar() {
+
+    if(this.id !== null) {
+      this.titulo = 'Editar cliente';
+      this._clienteService.obtenerCliente(this.id).subscribe(data => {
+        this.clienteForm.setValue({
+         nombre: data.nombre,
+         apellido: data.apellido,
+          tipocueta: data.tipocuenta,
+          monto: data.monto,
+        })
+      })
     }
   }
 
-  saveNewClient() {
-    delete this.cliente.id;
-    this.clienteService.saveCliente(this.cliente)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.router.navigate(['/clientes']);
-        },
-        err => console.error(err)
-      )
-  }
-
-  updateCliente(){
-    delete this.cliente.tipoCuenta;
-    const params = this.activatedRoute.snapshot.params;
-    this.clienteService.updateCliente(params['id'], this.cliente)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.router.navigate(['/clientes']);
-        },
-        err => console.log(err)
-      )
-  }
 }
-

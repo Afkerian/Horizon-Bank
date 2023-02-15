@@ -1,28 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+//Componentes
 import { ListarClienteComponent } from './component/listar-cliente/listar-cliente.component';
-import { CrearClienteComponente} from './component/crear-cliente/crear-cliente.component';
+
+import { CrearClienteComponent } from './component/crear-cliente/crear-cliente.component';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/clientes',
-    pathMatch: 'full'
+    path: '', component: ListarClienteComponent},
+  {
+    path: 'crear-cliente',
+    component: CrearClienteComponent
   },
   {
-    path: 'clientes',
-    component: ListarClienteComponent
+    path: 'editar-cliente/:id',
+    component: CrearClienteComponent
   },
   {
-    path: 'clientes/add',
-    component: ListarClienteComponent
-  },
-  {
-    path: 'clientes/edit/:id',
-    component: ListarClienteComponent
+    path: '**',
+    redirectTo: '', pathMatch:'full' 
   }
 ];
+
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

@@ -17,7 +17,3 @@ app.use('/api/usuarios', require('./routes/user'));
 // app.get('/', (req,res) => {
 //     res.send('Hola mundo');
 // })
-
-app.listen(4000, ()=>{
-    console.log('El server está corriendo nicely');
-})

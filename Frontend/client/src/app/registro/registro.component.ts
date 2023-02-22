@@ -15,7 +15,7 @@ export class RegistroComponent implements OnInit {
   mostrar=false;
 
   constructor() {
-    this.reg = new Registro('', '', '', '', '', '',)
+    this.reg = new Registro('', '', '', '', '', '')
   }
   ngOnInit(): void {
 

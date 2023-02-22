@@ -5,7 +5,7 @@ export class Registro {
         public nombre: string,
         public apellido: string,
         public telefono: string,
-        public contraseña: string
+        public domicilio: string
 
     ) { }
 }

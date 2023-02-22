@@ -10,7 +10,7 @@ export class UsuarioComponent implements OnInit{
   public reg: Registro;
 
   constructor() {
-    this.reg = new Registro('', '', '', '', '','')
+    this.reg = new Registro('', '', '', '', '', '')
   }
   ngOnInit(): void {
 

@@ -1,11 +1,22 @@
 <div class="container px-4 px-lg-5">
 
-    <h2>Cuenta</h2>
+    <h2>Perfil</h2>
     <div class="row gx-4 gx-lg-5 align-items-center " style=" margin: 50px;">
         <div class="col-lg-5">
 
 
             <form class="user" #formReg="ngForm">
+
+                <div id="correo" class="form-group">
+                    <label for="correo">Correo</label>
+                    <input type="text" name="correo" #correo="ngModel" [(ngModel)]="reg.correo" required pattern=""
+                        class="form-control form-control-user" placeholder="Correo" />
+                    <span *ngIf="correo.touched && !correo.valid">
+                        * Correo es obligatorio
+                    </span>
+
+
+                </div>
 
                 <div class="form-group">
                     <label for="nombres">Nombres Completos</label>
@@ -27,7 +38,16 @@
                         * Apellido es obligatorio
                     </span>
                 </div>
-                
+                <br>
+
+                <div class="form-group">
+                    <label for="domicilio">Domicilio</label>
+                    <input type="text" name="domicilio" #domicilio="ngModel" [(ngModel)]="reg.domicilio" required
+                        class="form-control form-control-user" placeholder="Domicilio" />
+                    <span *ngIf="domicilio.touched && !domicilio.valid">
+                        * Domicilio es obligatorio
+                    </span>
+                </div>
                 <br>
 
                 <div class="form-group">
@@ -39,27 +59,6 @@
                     </span>
                 </div>
                 <br>
-                <div id="correo" class="form-group">
-                    <label for="correo">Correo</label>
-                    <input type="text" name="correo" #correo="ngModel" [(ngModel)]="reg.correo" required pattern=""
-                        class="form-control form-control-user" placeholder="Correo" />
-                    <span *ngIf="correo.touched && !correo.valid">
-                        * Correo es obligatorio
-                    </span>
-
-
-                </div>
-
-                <div id="contraseña" class="form-group">
-                    <label for="contraseña">Contraseña</label>
-                    <input type="password" name="contraseña" #contraseña="ngModel" [(ngModel)]="reg.contraseña" required pattern=""
-                        class="form-control form-control-user" placeholder="Contraseña" />
-                    <span *ngIf="contraseña.touched && !contraseña.valid">
-                        * La contraseña es obligatorio
-                    </span>
-                </div> 
-
-                
 
 
                 <input type="submit" name="Continuar" [disabled]="!formReg.form.valid"
@@ -68,13 +67,17 @@
 
             </form>
 
-          
+
 
         </div>
 
         <div class="col-lg-2">
 
-       
+        </div>
+
+        <div class="col-lg-5">
+            <img src="assets/img/7.png" alt="" style="width: 350px; height: 350px;">
+        </div>
     </div>
 
 </div>

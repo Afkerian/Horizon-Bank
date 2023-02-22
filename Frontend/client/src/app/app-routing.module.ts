@@ -3,12 +3,14 @@ import { RouterModule, Routes } from "@angular/router";
 import { InicioComponent } from "./inicio/inicio.component";
 import { RegistroComponent } from "./registro/registro.component";
 import { UsuarioComponent } from "./usuario/usuario.component";
+import { SesionComponent } from "./sesion/sesion.component";
 
 
 //array de rutas
 const router: Routes = [
     { path: 'inicio', component: InicioComponent },
     { path: 'registro', component: RegistroComponent },
+    { path: 'sesion', component: SesionComponent },
     { path: 'usuario', component: UsuarioComponent },
 
     { path: '**', component: InicioComponent } //en caso de error 404, no carga

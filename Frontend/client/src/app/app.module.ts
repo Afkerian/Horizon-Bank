@@ -10,6 +10,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { CBodyDirective } from './c-body.directive';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { SesionComponent } from './sesion/sesion.component';
+import { CuentaComponent } from './cuenta/cuenta.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,10 @@ import { SesionComponent } from './sesion/sesion.component';
     RegistroComponent,
     CBodyDirective,
     UsuarioComponent,
-    SesionComponent
+    SesionComponent,
+    CuentaComponent,
+  
+
   ],
   imports: [
     BrowserModule,

@@ -3,8 +3,6 @@
         <div class="card text-white py-4" style="background-color: transparent;">
             <div class="row gx-4 gx-lg-5 align-items-center " style=" margin: 50px;">
                 <div class="col-lg-5">
-
-
                     <form class="user" #formReg="ngForm">
                        Inicio de sesión
                         <div id="nombre" class="form-group">
@@ -35,25 +33,14 @@
                             </span>
                             <br>
                         </div>
-
-                       <input type="submit" name="Continuar" [disabled]="!formReg.form.valid"
-                       class="btn btn-primary btn-sucess btn-block" value="Continuar" [routerLink]="'/usuario'">
-
-                    
+                          <input type="submit" name="Continuar" [disabled]="!formReg.form.valid"
+                          class="btn btn-primary btn-sucess btn-block" value="Continuar" [routerLink]="'/usuario'">
                     </form>
-
-                    
                 </div>
-
                 <div class="col-lg-2">
-
                 </div>
-
                 <div class="col-lg-5">
-                   
-                   
                 </div>
-
             </div>
 
         </div>

@@ -2,6 +2,7 @@
 var express=require('express');
 var bodyParser=require('body-parser');
 var app=express();
+var clientesRoutes=require('./routes/clientes.routes');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
@@ -14,9 +15,10 @@ app.use((req,res,next)=>{
 });
 
 //rutas
-app.get('/',(req, res)=>{
-    res.status(465).send("<h1>Hola Bienvenidos</h1>"
+/*app.get('/',(req, res)=>{
+    res.status(404).send("<h1>Hola Bienvenidos</h1>"
     )
 
-})
+})*/
+app.use('/', clientesRoutes);
 module.exports=app;

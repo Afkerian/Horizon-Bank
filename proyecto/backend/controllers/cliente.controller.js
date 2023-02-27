@@ -12,7 +12,7 @@ var controller={
    getClientes:function(req, res){
         Cliente.find({}).sort().exec((err, clientes)=>{
             if(err) return res.status(500).send({message:'Error al recuperar los datos'});
-            if(!clientes) return  res.status(404).send({message:'No hay libros para mostrar'});
+            if(!clientes) return  res.status(404).send({message:'No hay clientes para mostrar'});
             return res.status(200).send({clientes});
         })
     },

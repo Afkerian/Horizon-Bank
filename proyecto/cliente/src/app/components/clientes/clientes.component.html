@@ -1,0 +1,10 @@
+
+<h2>CLIENTES</h2>
+<ul>
+    <li *ngFor= "let cliente of clientes" class="cliente">
+        <a [routerLink]="['/cliente',cliente._id]">
+            <h3>{{cliente.nombre}} - {{cliente.apellido}} - {{cliente.cedula}}- {{cliente.correo}}</h3>
+        </a>
+    </li>
+
+</ul>

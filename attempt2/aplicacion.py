@@ -12,7 +12,7 @@ vistaPrincipal = Flask (__name__)
 def home():
     usuarios = db['usuarios']
     usuariosReceived = usuarios.find()
-    return render_template('inicio.html', usuarios = usuariosReceived)
+    return render_template('index.html', usuarios = usuariosReceived)
 
 
 # method POST

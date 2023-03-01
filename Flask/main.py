@@ -28,15 +28,18 @@ def registrar_usuario():
     if validar_cedula(cedula) is True:
         #Si a cedula es correcta
         if user_exists(cedula,db) is True:
-            return {'usuario':'Ya existe en la Base de Datos'}
+            return {'message':'Ya existe en la Base de Datos',
+                    'flag': False}
         else:
             #Registramos al Usuario
             password = generate_password_hash(password)
             save_usuario(nombres, apellidos, cedula, email, password, db)
-            return {'usuario':'Registrado Exitosamente'}
+            return {'message':'Registrado Exitosamente',
+                    'flag': True}
     else:
         #Si la cedula no es correcta
-        return {'usuario':'Cedula Invalida'}
+        return {'message':'Cedula Invalida',
+                'flag': False}
 
 @app.route('/APIRegistrarCuenta', methods=['POST'])
 def registrar_cuenta():
@@ -47,10 +50,22 @@ def registrar_cuenta():
     cedula = request.json['cedula']
     
     if open_account(cedula, nickname, db) is True:
-        return {'cuenta': 'Creada Exitosamete'}
+        return {'message': 'Creada Exitosamete',
+                'flag': True}
     else:
-        return {'cuenta': 'Error al crear la cuenta'}
+        return {'message': 'Error al crear la cuenta',
+                'flag': False}
+@app.route('/APIEditarUsuario', methods=['POST'])
+def editar_usuario():
+    db = mongo.db
 
+    print(request.json)
+    nombres = request.json['nombres']
+    apellidos = request.json['apellidos']
+    cedula = request.json['cedula']
+    email = request.json['email']
+    password = request.json['password']
+    
 if __name__ == '__main__':
     app.run(host='127.0.0.1',debug=True, port=5000)
     print('Base de Datos')

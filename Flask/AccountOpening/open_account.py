@@ -5,6 +5,7 @@ def gen_account(type='01'):
     #Generamos un randomico de cuenta bancaria
     #Supuestas curusales (24 Provincias)
     ccc = random.randint(1,24)
+    ccc = str(ccc).zfill(2)
     ccc = str.format(ccc)
 
     #Digitos de la cuenta
@@ -18,13 +19,15 @@ def gen_account(type='01'):
 
     return account
 
-def open_account(cedula,nickname, type, db):
+def open_account(cedula,nickname, db):
     print('El usuario {} esta creando una cuenta'.format(cedula))
 
     cuentas = db['cuentas']
 
     check = True
 
+    x = 0
+    type = '01'
     while check:
         #Generar un numero de cuenta
         account = gen_account(type)
@@ -46,4 +49,7 @@ def open_account(cedula,nickname, type, db):
     print('Creacion exitosa')
     print(x.inserted_id)
 
-    #Retornar 
+    if x != 0:
+        return True
+    else:
+        return False

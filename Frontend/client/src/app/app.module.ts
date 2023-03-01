@@ -7,7 +7,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistroComponent } from './registro/registro.component';
-import { CBodyDirective } from './c-body.directive';
+
 import { UsuarioComponent } from './usuario/usuario.component';
 import { SesionComponent } from './sesion/sesion.component';
 import { CuentaComponent } from './cuenta/cuenta.component';
@@ -17,7 +17,6 @@ import { CuentaComponent } from './cuenta/cuenta.component';
     AppComponent,
     InicioComponent,
     RegistroComponent,
-    CBodyDirective,
     UsuarioComponent,
     SesionComponent,
     CuentaComponent,

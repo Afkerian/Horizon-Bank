@@ -13,12 +13,12 @@ var controller={
    getClientes:function(req, res){
         Cliente.find({}).sort().exec((err, clientes)=>{
             if(err) return res.status(500).send({message:'Error al recuperar los datos'});
-            if(!clientes) return  res.status(404).send({message:'No hay libros para mostrar'});
+            if(!clientes) return  res.status(404).send({message:'No hay clientes para mostrar'});
             return res.status(200).send({clientes});
         })
     },
 
-    saveClientes:function(req, res){
+    saveCliente:function(req, res){
         //Aqui capturo los datos
         var cliente=new Cliente();
         var params =req.body;
@@ -39,7 +39,7 @@ var controller={
         var clienteId=req.params.id;
         if(clienteId==null) return res.status(404).send({message:'El el cliente no existe'});
         
-        Cliente.findById(clienteId,(err,libro)=>{
+        Cliente.findById(clienteId,(err,cliente)=>{
             if (err) return res.status(500).send({message:'Error al recuperar los datos'});
             if(!cliente) return res.status(404).send({message:'El clinete no existe'});
             return res.status(200).send({cliente});

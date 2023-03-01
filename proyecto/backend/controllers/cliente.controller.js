@@ -17,7 +17,7 @@ var controller={
         })
     },
 
-    saveClientes:function(req, res){
+    saveCliente:function(req, res){
         //Aqui capturo los datos
         var cliente=new Cliente();
         var params =req.body;
@@ -38,7 +38,7 @@ var controller={
         var clienteId=req.params.id;
         if(clienteId==null) return res.status(404).send({message:'El el cliente no existe'});
         
-        Cliente.findById(clienteId,(err,libro)=>{
+        Cliente.findById(clienteId,(err,cliente)=>{
             if (err) return res.status(500).send({message:'Error al recuperar los datos'});
             if(!cliente) return res.status(404).send({message:'El clinete no existe'});
             return res.status(200).send({cliente});

@@ -166,8 +166,8 @@ h2{
         color: #c7983d;
     }
 }
-/*libros*/
-.libro{
+/*clientes*/
+.cliente{
     list-style: none;
     display: block;
     float: left;
@@ -177,15 +177,15 @@ h2{
     margin-right: 20px;
     margin-bottom: 100px;
 }
-.libro .image{
+.cliente .image{
     width: 100%;
     height: 150px;
     overflow: hidden;
  }
- .libro img{
+ .cliente img{
     width: 100%;
  }
- .libro a{
+ .cliente a{
     text-decoration: none;
     color: black;
 }

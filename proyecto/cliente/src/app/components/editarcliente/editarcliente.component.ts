@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-editarclciente',
+  selector: 'app-editarcliente',
   templateUrl: '../crearcliente/crearcliente.component.html',
   styleUrls: ['./editarcliente.component.css'],
   providers:[ClienteService,CargarService]
@@ -47,7 +47,7 @@ export class EditarclienteComponent implements OnInit {
     this._clienteService.getCliente(id).subscribe(
       response=>{
         this.cliente=response.cliente;
-        //console.log(this.libro);
+        //console.log(this.cliente);
       },
       error=>{
         console.log(<any>error);
@@ -68,6 +68,7 @@ export class EditarclienteComponent implements OnInit {
             form.reset();
             
           }
+          
         },
         
       

@@ -14,7 +14,7 @@ export class ClienteService{
         this.url=Global.url;
     }
 //ver todos los clientes
-//http://localhost:3600/libros
+//http://localhost:3600/clientes
 getClientes():Observable<any>{
     let headers=new HttpHeaders().set('Content-Type','application/json');
     return this._http.get(this.url+'clientes',{headers:headers});

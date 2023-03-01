@@ -35,7 +35,7 @@ export class DetalleclienteComponent implements OnInit {
   getCliente(id:String){
     this._clienteService.getCliente(id).subscribe(
       response=>{
-        this.cliente=response.libro;
+        this.cliente=response.cliente;
       
       },
       error=>{

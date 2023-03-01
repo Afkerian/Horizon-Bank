@@ -4,7 +4,7 @@ var port ='3600';
 mongoose.promise=global.Promise;
 mongoose.set("strictQuery", false);
 var app=require('./app');
-mongoose.connect('mongodb://127.0.0.1:27017/clientes')
+mongoose.connect('mongodb+srv://isaacmateosv:mongodv@testmongo.1uoiaiv.mongodb.net/test')
 
 .then(()=>{
     console.log("Conexion establecida cona la bbd");

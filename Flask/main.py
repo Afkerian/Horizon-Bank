@@ -69,7 +69,14 @@ def editar_usuario():
     apellidos = request.json['apellidos']
     cedula = request.json['cedula']
     email = request.json['email']
-    password = request.json['password']
+    
+    usuarios = db['usuarios']
+    myquery = { 'cedula': cedula }
+    newvalues = { '$set': { 'nombres': nombres, 'apellidos': apellidos, 'email': email} }
+    
+    usuarios.update_one(myquery,newvalues)
+    
+    return {'flag': True, 'message': 'Actualizacion Exitosa'}
 
 @app.route('/APIObtenerUsuarios', methods=['GET'])
 def obtener_usuarios():

@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6" >
+            
+                <form #formReg="ngForm">
+
+                    <h2 style="width: 200px; margin: auto;">Cédula</h2>
+                    <br>
+                    <input style="width: 200px; margin: auto;" type="text" name="cedula" #ngCedula="ngModel" [(ngModel)]="this.cedula" required
+                     class="form-control form-control-user" placeholder="Cédula" />
+                    <br>
+                    <h2 style="width: 200px; margin: auto;">Contraseña</h2>
+                    <br>
+                    <input style="width: 200px; margin: auto;" type="password" name="password" #ngPassword="ngModel" [(ngModel)]="this.password" required
+                     class="form-control form-control-user" placeholder="Contraseña" />
+                    <br><br>
+                     <div class="col" style="text-align: center;">
+                        <input type="submit" name="Continuar" [disabled]="!formReg.form.valid" (click)="login()"
+                        class="btn btn-primary btn-sucess btn-block" value="Continuar" [routerLink]="'/inicio'">
+                    </div>
+                </form>
+
+            
+        </div>
+        <div class="col-lg-6" style="text-align: center;">
+            <br><br><br><br><br>
+            <h1 style="color: white;">¡Inicia Sesión!</h1>
+            
+        </div>
+    </div>
+</div>

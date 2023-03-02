@@ -1,0 +1,102 @@
+<body appCBody>
+    <div class="container px-4 px-lg-5">
+        <div class="card text-white py-4" style="background-color: transparent;">
+            <div class="row gx-4 gx-lg-5 align-items-center " style=" margin: 50px;">
+                <div class="col-lg-5">
+
+
+                    <form class="user" #formReg="ngForm">
+                        Formulario de Registro
+                        <div id="nombre" class="form-group">
+                            <label for="nombre">Nombres</label>
+                            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="reg.nombres" required
+                                pattern="^\w+\s\w+$" class="form-control form-control-user" placeholder="Nombres" />
+                            <span *ngIf="nombre.touched && !nombre.valid">
+                                * Nombre es obligatorio
+                            </span>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="apellidos">Apellidos</label>
+                            <input type="text" name="apellidos" #apellidos="ngModel" [(ngModel)]="reg.apellidos"
+                                required pattern="^\w+\s\w+$" class="form-control form-control-user"
+                                placeholder="Apellidos" />
+                            <span *ngIf="apellidos.touched && !apellidos.valid">
+                                * Apellido es obligatorio
+                            </span>
+                        </div>
+                        <br>
+                        
+
+                        <div id="cedula" class="form-group">
+                            <label for="cedula">Cédula</label>
+                            <input type="cedula" name="cedula" #ngCedula="ngModel" [(ngModel)]="reg.cedula" required
+                                pattern="^\d{10}$" class="form-control form-control-user" placeholder="Cédula" />
+                            <span *ngIf="ngCedula.touched && !ngCedula.valid">
+                                * Cédula obligatorio
+                            </span>
+                            
+                        </div>
+                        <br>
+
+                        <div id="contrasena" class="form-group">
+                            <label for="contrasena">Contraseña</label>
+                            <input type="password" name="password" #contrasena="ngModel" [(ngModel)]="reg.password" required
+                                pattern="" class="form-control form-control-user" placeholder="Contraseña" />
+                            <span *ngIf="contrasena.touched && !contrasena.valid">
+                                * Contraseña es obligatorio
+                            </span>
+                            
+                        </div>
+
+                        <br>
+                        <div id="contrasena" class="form-group">
+                            <label for="contrasena">Confirmación de contraseña</label>
+                            <input type="password" name="password" required
+                                pattern="" class="form-control form-control-user" placeholder="Contraseña" />
+                            <span *ngIf="contrasena.touched && !contrasena.valid">
+                                * Contraseña es obligatorio
+                            </span>
+                            
+                        </div>
+
+
+                        <br>
+                        <div id="correo" class="form-group">
+                            <label for="correo">Correo</label>
+                            <input type="text" name="correo" #correo="ngModel" [(ngModel)]="reg.email" required
+                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" class="form-control form-control-user" placeholder="Correo" />
+                            <span *ngIf="correo.touched && !correo.valid">
+                                * Correo es obligatorio
+                            </span>
+                            <br>
+                            <br>
+                            <div class="col" style="text-align: center;">
+                                <input type="submit" name="Continuar" [disabled]="!formReg.form.valid" (click)="guardarRegistro()"
+                                class="btn btn-primary btn-sucess btn-block" value="Continuar" [routerLink]="'/inicio'">
+                            </div>
+                                
+                        </div>
+
+                        
+                    </form>
+
+                    
+                </div>
+
+
+                <div class="col-lg-2">
+
+                </div>
+
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light">¡Regístrate!</h1>
+                   
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>

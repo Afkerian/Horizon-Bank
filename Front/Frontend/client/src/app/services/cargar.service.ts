@@ -27,6 +27,6 @@ export class CargarService{
         let params=JSON.stringify(sesion);
         let headers=new HttpHeaders().set('Content-Type','application/json');
         
-        return this._http.post(this.url+'APIRegistrarUsuario',params,{headers:headers});
+        return this._http.post(this.url+'APILogin',params,{headers:headers});
     }
 }

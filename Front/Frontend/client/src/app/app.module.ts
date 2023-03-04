@@ -11,6 +11,7 @@ import { CBodyDirective } from './c-body.directive';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { CuentaComponent } from './cuenta/cuenta.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { LoginComponent } from './login/login.component';
     UsuarioComponent,
     CuentaComponent,
     LoginComponent,
+    LogoutComponent,
   
 
   ],

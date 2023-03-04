@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Sesion } from 'app/models/sesion';
 import { CargarService } from 'app/services/cargar.service';
 import { Global } from 'app/services/global';
+
+
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit{
   public password:string=""
   
   constructor(
-    private _cargarservice:CargarService
+    private _cargarservice:CargarService,
+    
   ){
     
   }
@@ -26,18 +28,19 @@ export class LoginComponent implements OnInit{
 
   public login(){
     
-    let data:any={user:this.cedula, password:this.password}
+    let data:any={cedula:this.cedula, password:this.password}
     this._cargarservice.login(data).subscribe({
       next: response => {
 
         if(response.flag){
           alert("Inicio de sesión exitoso")
-          Global.nombres=response.usuario.nombres
-          Global.apellidos=response.usuario.apellidos
-          Global.cedula=response.usuario.cedula
-          Global.email=response.usuario.email
+          Global.nombres=response.nombres
+          Global.apellidos=response.apellidos
+          Global.cedula=response.cedula
+          Global.email=response.email
           this.password=""
           this.cedula=""
+          //this.router.navigate(['/inicio']);
         }else{
           alert("Se ha producido un error: "+response.message)
         }

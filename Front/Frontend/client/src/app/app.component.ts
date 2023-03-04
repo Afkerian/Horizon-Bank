@@ -12,6 +12,7 @@ export class AppComponent implements OnInit{
   public logedUserApellidos=""
   public logedUserCedula=""
   public logedUserEmail=""
+  public pattern=/^\d{10}$/
   constructor(){
     this.logedUserNombres=Global.nombres
     this.logedUserApellidos=Global.apellidos
@@ -20,6 +21,14 @@ export class AppComponent implements OnInit{
   }
   ngOnInit(): void {
     
+  }
+  
+  setUser(){
+    this.logedUserNombres=Global.nombres
+    this.logedUserApellidos=Global.apellidos
+    this.logedUserCedula=Global.cedula
+    this.logedUserEmail=Global.email
+    return this.pattern.test(this.logedUserCedula);
   }
   
 

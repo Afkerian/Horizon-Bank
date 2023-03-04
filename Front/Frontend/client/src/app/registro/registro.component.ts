@@ -34,6 +34,7 @@ export class RegistroComponent implements OnInit {
         
         if(response.flag){
           alert(response.message)
+          
         }else{
           alert("Se ha generado un error: "+response.message)
         }

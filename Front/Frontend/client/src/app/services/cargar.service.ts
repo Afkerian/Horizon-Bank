@@ -29,4 +29,20 @@ export class CargarService{
         
         return this._http.post(this.url+'APILogin',params,{headers:headers});
     }
+
+    crearCuenta(datosCuenta:any):Observable<any>{
+        let params=JSON.stringify(datosCuenta);
+        let headers=new HttpHeaders().set('Content-Type','application/json');
+        
+        return this._http.post(this.url+'APIRegistrarCuenta',params, {headers:headers});
+    }
+
+    getUsuarios():Observable<any>{
+        
+        let headers=new HttpHeaders().set('Content-Type','application/json');
+        
+        return this._http.get(this.url+'APIObtenerUsuarios',{headers:headers});
+    }
+
+    
 }

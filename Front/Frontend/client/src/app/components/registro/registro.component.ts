@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit,Renderer2,ViewChild } from '@angular/core';
-import { CargarService } from '../services/cargar.service';
+import { CargarService } from '../../services/cargar.service';
 
-import { Registro } from '../models/registro';
+import { Registro } from '../../models/registro';
 
 
 @Component({

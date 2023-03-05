@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 style="text-align: center;">Usuarios</h1>
+        
+            <br>
+            <br>
+
+            
+            <table style="background-color: aliceblue;" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Cédula</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let usuario of this.usuarios; let i = index;">
+                    <th scope="row">{{i}}</th>
+                    <td>{{usuario.nombres}}   </td>
+                    <td>{{usuario.apellidos}}</td>
+                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.cedula}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+
+
+
+        
+            
+                
+                    
+                    
+                
+           
+            
+        
+        </div>
+    </div>
+</div>

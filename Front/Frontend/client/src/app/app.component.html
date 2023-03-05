@@ -26,8 +26,11 @@
 
         
 
+        <li class="nav-item" *ngIf="true">
+          <a class="nav-link" [routerLink]="'/ver-usuarios'" [routerLinkActive]="'active'">Ver Usuarios</a>
+        </li>
         <li class="nav-item" *ngIf="setUser()">
-          <a class="nav-link" [routerLink]="'/inicio'" [routerLinkActive]="'active'">Crear Cuenta</a>
+          <a class="nav-link" [routerLink]="'/crear-cuenta'" [routerLinkActive]="'active'">Crear Cuenta</a>
         </li>
         <li class="nav-item" *ngIf="setUser()">
           <a class="nav-link" [routerLink]="'/inicio'" [routerLinkActive]="'active'">{{this.logedUserNombres}}</a>

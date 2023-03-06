@@ -11,13 +11,13 @@
                 <h3>¿Cómo se va a llamar tu cuenta?</h3> 
                 <br>
                 <input style="width: 300px;" type="text" name="nombre" #ngNickname="ngModel" [(ngModel)]="this.nickname
-                " required pattern="^[A-Za-z0-9]+([A-Za-z0-9]*|[._-]?[A-Za-z0-9]+)*$" class="form-control form-control-user" placeholder="Nickname de tu cuenta">
+                " required class="form-control form-control-user" placeholder="Nickname de tu cuenta">
                     <span *ngIf="ngNickname.touched && !ngNickname.valid">
                         <h6 style="color: red;">*El nombre no es válido</h6>
                     </span>
                 <br>
                 <br><br>
-                <button class="btn btn-primary btn-sucess btn-block" value="Continuar" type="submit" [disabled]="!cuentaForm.valid" (click)="crearCuenta()">Crear Pelicula</button>
+                <button class="btn btn-primary btn-sucess btn-block" value="Continuar" type="submit" [disabled]="!cuentaForm.valid" (click)="crearCuenta()">Crear Cuenta</button>
             </form>
         </div>
         <div class="col-lg-6" style="text-align: center;">

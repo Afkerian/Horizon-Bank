@@ -15,7 +15,7 @@
             <form #formTransferencia="ngForm">
                 <h2 style="width: 200px; margin: auto;">Cuenta a transferir</h2>
                 <br>
-                <input style="width: 200px; margin: auto;" type="text" name="cuentaATransferir" #ngCuentaATransferir="ngModel" [(ngModel)]="this.cuentaATransferir" required pattern="^[1-9]\d*$"
+                <input style="width: 200px; margin: auto;" type="text" name="cuentaATransferir" #ngCuentaATransferir="ngModel" [(ngModel)]="this.cuentaATransferir" required pattern="^[0-9]\d*$"
                  class="form-control form-control-user" placeholder="Cuenta a transferir" />
                 <br>
                 <h2 style="width: 200px; margin: auto;">Monto</h2>
@@ -23,9 +23,18 @@
                 <input style="width: 200px; margin: auto;" type="text" name="monto" #ngMonto="ngModel" [(ngModel)]="this.monto" required
                  class="form-control form-control-user" placeholder="Monto" pattern="^[1-9]\d*(\.\d+)?$"/>
                 <br><br>
+                
+                
                 <div class="col" style="text-align: center;">
+                    <select style="width: 180px;  display: block; margin: 0 auto;" class="form-select" (change)="getSelectedValue($event)"  >
+                        <option selected> Selecciona la operación</option>
+                        <option  value="Local" >Local </option>
+                        <option  value="Interbancaria">Interbancaria</option>
+                    </select>
+    
+                    <br><br>
                     <input type="submit" name="transferir" [disabled]="!formTransferencia.form.valid"
-                    class="btn btn-primary btn-sucess btn-block" value="Transferir" (click)="tranferencia()" [routerLink]="'/mi-cuenta/:cedula'">
+                    class="btn btn-primary btn-sucess btn-block" value="Transferir" (click)="tranferencia()">
                 </div>
             </form>
         </div>

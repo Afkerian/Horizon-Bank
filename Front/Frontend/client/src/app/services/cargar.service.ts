@@ -64,5 +64,14 @@ export class CargarService{
         
         return this._http.get(this.url+'APIObtenerCuentas', {headers:headers});
     }
+
+
+    sentAccountState(cedula:string):Observable<any>{
+        let queryParams = new HttpParams();
+        console.log(cedula)
+        queryParams = queryParams.append("cedula",cedula);
+        
+        return this._http.get(this.url+'APIEstadoCuenta',{params:queryParams});
+    }
     
 }

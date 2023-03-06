@@ -13,8 +13,9 @@ export class TranferenciaComponent  {
   public cuentaATransferir:string;
   public monto:string;
   public cuenta:string;
+  public bancoCuentaATransferir!:string
   constructor(
-    private _router:Router,
+    
     private _route:ActivatedRoute,
     private _cargarservice:CargarService
   ){
@@ -32,7 +33,6 @@ export class TranferenciaComponent  {
     let data:any={account:this.cuenta, destination_account:this.cuentaATransferir, monto:this.monto}
     this._cargarservice.transferencia(data).subscribe({
       next: response => {
-        
         let data=response
         if(data.flag){
           alert(data.message)
@@ -41,9 +41,18 @@ export class TranferenciaComponent  {
         }
         this.cuentaATransferir=""
         this.monto=""
+        
       },
       error: error => console.log("Error, no se han podido cargar los datos"),
       complete: () => console.info('complete') 
   })
   }
+
+  getSelectedValue(event:any){
+    
+    this.bancoCuentaATransferir=event.target.value
+    
+  
+  }
+
 }

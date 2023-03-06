@@ -12,7 +12,8 @@ from flask_cors import CORS
 from Login.login_user import login_user
 from Transfers.transfer import local_transfer
 from Transfers.find_account import find_account
-
+from Email.send_email import send_email
+from PDF.gen_pdf import gen_pdf
 PATH_FRONT = '../Angular/horizon-fe/src/'
 app = Flask(__name__,template_folder=PATH_FRONT)
 CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
@@ -40,6 +41,30 @@ def registrar_usuario():
             #Registramos al Usuario
             password = generate_password_hash(password)
             save_usuario(nombres, apellidos, cedula, email, password, db)
+            
+            archivo = gen_pdf(cedula, 'creacion_usuario',
+                      nombres, apellidos,
+                      'None', 100, 'none')
+            cuerpo = """Asunto: Registro de usuario exitoso
+
+                        Estimado/a {},
+
+                        Le informamos que su registro ha sido exitoso en nuestro banco. 
+                        Ahora podrá disfrutar de todos nuestros servicios financieros en línea.
+
+                        A continuación encontrará la información de su perfil:
+
+                        - Nombre completo: {} {}
+                        - Correo electrónico: {}
+                        - Número de identificación: {}
+
+                        Le agradecemos por confiar en nosotros y quedamos a su disposición para cualquier consulta o gestión que necesite realizar.
+
+                        Atentamente,
+                        El equipo de Horizon Bank
+                        """.format(apellidos+' '+nombres,apellidos,nombres,email, cedula)
+            
+            send_email('Registro de Usuario',email, cuerpo, archivo)
             return {'message':'Registrado Exitosamente',
                     'flag': True}
     else:
@@ -55,12 +80,37 @@ def registrar_cuenta():
     nickname = request.json['nickname']
     cedula = request.json['cedula']
     
+    
     if open_account(cedula, nickname, db) is True:
+        usuario = db.usuarios.find_one({'cedula': cedula})
+        cuenta = db.cuentas.find_one({'cedula': cedula})
+        archivo = gen_pdf(usuario['cedula'], 'creacion_cuenta',
+                      usuario['nombres'], usuario['apellidos'],
+                      cuenta['id_cuenta'], 100, 'none')
+        cuerpo = """Estimado/a {},
+
+                    Le informamos que su cuenta ha sido creada exitosamente en nuestro banco.
+
+                    A continuación encontrará la información de su cuenta:
+
+                    - Nombre de cuenta: {}
+                    - Número de cuenta: {}
+                    - Tipo de cuenta: Corriente
+                    - Saldo inicial: 25
+
+                    Le agradecemos por confiar en nosotros y quedamos a su disposición para cualquier consulta o gestión que necesite realizar.
+
+                    Atentamente,
+                    El equipo de Horizon Bank""".format(usuario['nombres'], nickname, cuenta['id_cuenta'])
+
+           
+        send_email('Creacion de Cuenta',usuario['email'], cuerpo, archivo)
         return {'message': 'Creada Exitosamete',
                 'flag': True}
     else:
         return {'message': 'Error al crear la cuenta',
                 'flag': False}
+    
     
 @app.route('/APIEditarUsuario', methods=['POST'])
 def editar_usuario():
@@ -150,7 +200,7 @@ def obtener_cuentas():
 @app.route('/APIObtenerCuentasCliente', methods=['GET'])
 def obtener_cuentas_cliente():
     db = mongo.db
-    
+
     # Obtener todos las cuentas en la colección de cuentas de la base de datos
     cuentas = db.cuentas.find({'cedula': request.args.get('cedula')})
 
@@ -178,11 +228,67 @@ def transferencia_local():
     
     if find_account(destination_account,db):
         if local_transfer(account, destination_account, monto, db):
+            cuenta = db.cuentas.find_one({'id_cuenta': account})
+            cedula = cuenta['cedula']
+            usuario = db.usuarios.find_one({'cedula': cedula})
+            print(usuario['nombres'], account, str(monto))
+            cuerpo = """
+                        Estimado/a {},
+
+                        Le agradecemos por su transferencia por un monto de ${} realizada desde la cuenta XXXXXX{}.
+
+                        Hemos confirmado la recepción de la transferencia y hemos acreditado el monto a su cuenta. 
+                        Le sugerimos que revise su estado de cuenta para confirmar la transacción.
+
+                        Si tiene alguna pregunta o inquietud, no dude en ponerse en contacto con nosotros.
+
+                        Gracias por confiar en nuestros servicios.
+
+                        Atentamente,
+                        Horizon Bank
+                        """.format(usuario['nombres'], str(monto), account[-4:] )
+            archivo = gen_pdf(usuario['cedula'], 'transferencia',
+                      usuario['nombres'], usuario['apellidos'],
+                      cuenta['id_cuenta'], monto, 'none')
+            
+            send_email('Transferencia',usuario['email'], cuerpo, archivo)
+            mydict = {'tipo': 'Transferencia', 'cedula': cedula, 'origen': account, 'destino': destination_account, 'monto': monto}
+            db.transacciones.insert_one(mydict)
             return {'flag': True, 'message': 'Transaccion Exitosa'}
         else:
             return {'flag': False, 'message': 'Saldo Insuficiente'}
     else:
         return {'flag': False, 'message': 'Cuenta de Destino no Existe'}
+
+@app.route('/APIEstadoCuenta', methods=['GET'])
+def estado_cuenta():
+    db = mongo.db
+    
+    # Obtener todos las transacciones en la colección de transacciones de la base de datos
+    transacciones = db.transacciones.find({'cedula': request.args.get('cedula')})
+    print(request.args.get('cedula'))
+    resultado = []
+
+    # Iterar a través de las cuentas y agregarlos a la lista de resultados
+    for transaccion in transacciones:
+        resultado.append({
+            'tipo': transaccion['tipo'],
+            'cedula': transaccion['cedula'],
+            'origen': transaccion['origen'],
+            'destino': transaccion['destino'],
+            'monto': transaccion['monto'],
+        })
+
+    usuario = db.usuarios.find_one({'cedula': request.args.get('cedula')})
+    cuenta = db.cuentas.find_one({'cedula': request.args.get('cedula')})
+    archivo = gen_pdf(usuario['cedula'], 'estado_de_cuenta',
+                      usuario['nombres'], usuario['apellidos'],
+                      cuenta['id_cuenta'], 100, resultado)
+    cuerpo = "Estimado/a "+ usuario['nombres']+',\n\n'+'Le enviamos adjunto su estado de cuenta.\n\n'+ 'Por favor, revise la información detallada en el estado de cuenta y verifique que todo esté correcto. Si tiene alguna pregunta o inquietud, no dude en ponerse en contacto con nosotros.\n\n'+'Recuerde que puede realizar pagos en línea a través de nuestra página web, o en cualquiera de nuestras sucursales.\n\n'+'Atentamente,\n'+'Horizon Bank.'
+
+    send_email('Estado de Cuenta', usuario['email'], cuerpo, archivo)
+    # Devolver la lista de resultados como JSON
+    return {'message': 'Estado de Cuenta Generado Exitosamente!'}
 
 
 if __name__ == '__main__':

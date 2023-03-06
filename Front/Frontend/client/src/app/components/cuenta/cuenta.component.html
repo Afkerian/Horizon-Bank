@@ -1,14 +1,30 @@
-<p>Mi cuenta</p>
-
-
-<p>Nombre: <input type="text" name="nombre"/></p>
-<p># Cuenta: <input type="number" name="numerocuenta"/></p>
-
-<p>SALDO: <input type="number" name="Saldo"/></p>
-
-
-
-<input type=button name=boton value= Regresar [routerLink]="'/usuario'">
-
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 style="text-align: center;">Mis cuentas</h1>
+            <br>
+            <h5 style="color: white">*Recuerda que haciendo clic en tu número de cuenta puedes transferir dinero</h5>
+            <br>
+            <table style="background-color: aliceblue;" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID Cuenta</th>
+                    <th scope="col">Nickname</th>
+                    <th scope="col">Saldo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cuenta of this.cuentas; let i = index;">
+                    <th scope="row">{{i}}</th>
+                    <td><a [routerLink]="['/transferencia',cuenta.id_cuenta]">{{cuenta.id_cuenta}}</a> </td>
+                    <td>{{cuenta.nickname}}</td>
+                    <td>{{cuenta.saldo}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
 
 

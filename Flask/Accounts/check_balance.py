@@ -1,7 +1,7 @@
 
 
-def check_balance(cedula, account, db):
-    print('El usuario {} esta consultando el saldo'.format(cedula))
+def check_balance(account, db):
+    print('Consultando el saldo de la cuenta {}'.format(account))
 
     cuentas = db['cuentas']
     #mydict = {'id_cuenta': account, 'cedula': cedula, 'nickname': nickname, 'saldo': 25}
@@ -9,7 +9,7 @@ def check_balance(cedula, account, db):
 
     saldo = cuenta["saldo"]
 
-    print('El saldo de {} en la cuenta {} es de ${}'.format(cedula,account,saldo))
+    print('El saldo de la cuenta {} es de ${}'.format(account,saldo))
     return saldo
 
 

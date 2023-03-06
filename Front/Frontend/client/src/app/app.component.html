@@ -11,7 +11,6 @@
     <a class="navbar-brand">
       <img src="assets/img/logo.jpg" width="30" height="30" class="d-inline-block align-top text-decoration-none"
         alt="">
-      Horizon-Bank
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
@@ -25,16 +24,25 @@
         </li>
 
         
+        
+        <li class="nav-item" *ngIf="setUser()">
+          <a class="nav-link" [routerLink]="'/mi-cuenta/:cedula'" [routerLinkActive]="'active'">Mis Cuentas</a>
+        </li>
 
-        <li class="nav-item" *ngIf="true">
+        <li class="nav-item" *ngIf="isAdmin()">
           <a class="nav-link" [routerLink]="'/ver-usuarios'" [routerLinkActive]="'active'">Ver Usuarios</a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link" [routerLink]="'/ver-cuentas'" [routerLinkActive]="'active'">Ver Cuentas</a>
         </li>
         <li class="nav-item" *ngIf="setUser()">
           <a class="nav-link" [routerLink]="'/crear-cuenta'" [routerLinkActive]="'active'">Crear Cuenta</a>
         </li>
+
         <li class="nav-item" *ngIf="setUser()">
-          <a class="nav-link" [routerLink]="'/inicio'" [routerLinkActive]="'active'">{{this.logedUserNombres}}</a>
+          <a class="nav-link" [routerLink]="'/inicio'" [routerLinkActive]="'active'" (click)="sentAccountState()">{{this.logedUserNombres}}</a>
         </li>
+
         <li class="nav-item" *ngIf="setUser()">
           <a class="nav-link" [routerLink]="'/logout'" [routerLinkActive]="'active'">Cerrar Sesión</a>
         </li>

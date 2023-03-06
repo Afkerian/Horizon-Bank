@@ -1,26 +1,24 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h1 style="text-align: center;">Usuarios</h1>
+            <h1 style="text-align: center;">Cuentas creadas</h1>
             <br>
             <br>
             <table style="background-color: aliceblue;" class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombres</th>
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">Correo</th>
                     <th scope="col">Cédula</th>
+                    <th scope="col">ID Cuenta</th>
+                    <th scope="col">nickname</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let usuario of this.usuarios; let i = index;">
+                  <tr *ngFor="let cuenta of this.cuentas; let i = index;">
                     <th scope="row">{{i}}</th>
-                    <td>{{usuario.nombres}}   </td>
-                    <td>{{usuario.apellidos}}</td>
-                    <td>{{usuario.email}}</td>
-                    <td>{{usuario.cedula}}</td>
+                    <td>{{cuenta.cedula}} </td>
+                    <td><a [routerLink]="['/transferencia',cuenta.id_cuenta]">{{cuenta.id_cuenta}}</a></td>
+                    <td>{{cuenta.nickname}}</td>
                   </tr>
                 </tbody>
               </table>

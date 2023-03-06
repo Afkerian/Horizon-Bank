@@ -8,18 +8,14 @@ import { Router } from '@angular/router';
   providers: [Router]
 })
 export class LogoutComponent implements OnInit{
-
   constructor(
     private router: Router
-
   ){
-
   }
   ngOnInit(): void {
     Global.nombres=""
     Global.apellidos=""
     Global.email=""
     Global.cedula=""
-    //this.router.navigate(['http://localhost:4200/inicio']);
   }
 }

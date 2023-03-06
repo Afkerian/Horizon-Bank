@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 
 import { Global } from "./global";
 import { Observable } from 'rxjs';
@@ -44,5 +44,25 @@ export class CargarService{
         return this._http.get(this.url+'APIObtenerUsuarios',{headers:headers});
     }
 
+    getCuentasCliente(cedula:string):Observable<any>{
+        let queryParams = new HttpParams();
+        queryParams = queryParams.append("cedula",cedula);
+        
+        return this._http.get(this.url+'APIObtenerCuentasCliente',{params:queryParams});
+    }
+
+    transferencia(transferencia:any):Observable<any>{
+        let params=JSON.stringify(transferencia);
+        let headers=new HttpHeaders().set('Content-Type','application/json');
+        
+        return this._http.post(this.url+'APITransferenciaLocal',params, {headers:headers});
+    }
+
+    getCuentas():Observable<any>{
+        
+        let headers=new HttpHeaders().set('Content-Type','application/json');
+        
+        return this._http.get(this.url+'APIObtenerCuentas', {headers:headers});
+    }
     
 }

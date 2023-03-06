@@ -1,10 +1,11 @@
 from Accounts import check_balance
 
-def local_transfer(cedula, account, destination_account, monto, db):
+def local_transfer(account, destination_account, monto, db):
     print('Transferencia de {} de la cuenta {} hacia {}'.format(monto,account,destination_account))
 
+    monto = float(monto)
     #Verificar balance
-    saldo = check_balance.check_balance(cedula,account,db)
+    saldo = float(check_balance.check_balance(account,db))
 
     if saldo > monto:
         print('Saldo suficiente')
@@ -19,7 +20,7 @@ def local_transfer(cedula, account, destination_account, monto, db):
         cuentas.update_one(myquery, newvalues)
 
         #Nuevo saldo destino
-        saldo = check_balance.check_balance(cedula,account,db)
+        saldo = float(check_balance.check_balance(destination_account,db))
 
         saldo = saldo + monto
 

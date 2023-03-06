@@ -10,6 +10,8 @@ from AccountOpening.open_account import open_account
 from bson import json_util
 from flask_cors import CORS
 from Login.login_user import login_user
+from Transfers.transfer import local_transfer
+from Transfers.find_account import find_account
 
 PATH_FRONT = '../Angular/horizon-fe/src/'
 app = Flask(__name__,template_folder=PATH_FRONT)
@@ -42,7 +44,7 @@ def registrar_usuario():
                     'flag': True}
     else:
         #Si la cedula no es correcta
-        return {'message':'Cédula Invalida',
+        return {'message':'Cedula Invalida',
                 'flag': False}
 
 @app.route('/APIRegistrarCuenta', methods=['POST'])
@@ -69,7 +71,14 @@ def editar_usuario():
     apellidos = request.json['apellidos']
     cedula = request.json['cedula']
     email = request.json['email']
-    password = request.json['password']
+    
+    usuarios = db['usuarios']
+    myquery = { 'cedula': cedula }
+    newvalues = { '$set': { 'nombres': nombres, 'apellidos': apellidos, 'email': email} }
+    
+    usuarios.update_one(myquery,newvalues)
+    
+    return {'flag': True, 'message': 'Actualizacion Exitosa'}
 
 @app.route('/APIObtenerUsuarios', methods=['GET'])
 def obtener_usuarios():
@@ -116,7 +125,64 @@ def login():
     else:
         return {'flag': False, 'message': 'Usuario o contraseña incorrectos'}
 
+@app.route('/APIObtenerCuentas', methods=['GET'])
+def obtener_cuentas():
+    db = mongo.db
 
+    # Obtener todos las cuentas en la colección de cuentas de la base de datos
+    cuentas = db.cuentas.find()
+
+
+    # Crear una lista vacía para almacenar los resultados
+    resultado = []
+
+    # Iterar a través de las cuentas y agregarlos a la lista de resultados
+    for cuenta in cuentas:
+        resultado.append({
+            'id_cuenta': cuenta['id_cuenta'],
+            'nickname': cuenta['nickname'],
+            'cedula': cuenta['cedula']
+        })
+
+    # Devolver la lista de resultados como JSON
+    return {'cuentas': resultado}
+
+@app.route('/APIObtenerCuentasCliente', methods=['GET'])
+def obtener_cuentas_cliente():
+    db = mongo.db
+    
+    # Obtener todos las cuentas en la colección de cuentas de la base de datos
+    cuentas = db.cuentas.find({'cedula': request.args.get('cedula')})
+
+    resultado = []
+
+    # Iterar a través de las cuentas y agregarlos a la lista de resultados
+    for cuenta in cuentas:
+        resultado.append({
+            'id_cuenta': cuenta['id_cuenta'],
+            'nickname': cuenta['nickname'],
+            'cedula': cuenta['cedula'],
+            'saldo': cuenta['saldo']
+        })
+
+    # Devolver la lista de resultados como JSON
+    return {'cuentas': resultado}
+
+@app.route('/APITransferenciaLocal', methods=['POST'])
+def transferencia_local():
+    db = mongo.db
+    
+    account = request.json['account']
+    destination_account = request.json['destination_account']
+    monto = request.json['monto']
+    
+    if find_account(destination_account,db):
+        if local_transfer(account, destination_account, monto, db):
+            return {'flag': True, 'message': 'Transaccion Exitosa'}
+        else:
+            return {'flag': False, 'message': 'Saldo Insuficiente'}
+    else:
+        return {'flag': False, 'message': 'Cuenta de Destino no Existe'}
 
 
 if __name__ == '__main__':

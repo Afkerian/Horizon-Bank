@@ -15,6 +15,8 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { CrearCuentaComponent } from './components/crear-cuenta/crear-cuenta.component';
 import { VerUsuariosComponent } from './components/ver-usuarios/ver-usuarios.component';
 import { MisCuentasComponent } from './components/mis-cuentas/mis-cuentas.component';
+import { TranferenciaComponent } from './components/tranferencia/tranferencia.component';
+import { VerCuentasComponent } from './components/ver-cuentas/ver-cuentas.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { MisCuentasComponent } from './components/mis-cuentas/mis-cuentas.compon
     CrearCuentaComponent,
     VerUsuariosComponent,
     MisCuentasComponent,
+    TranferenciaComponent,
+    VerCuentasComponent,
   
 
   ],

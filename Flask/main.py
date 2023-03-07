@@ -10,7 +10,7 @@ from AccountOpening.open_account import open_account
 from bson import json_util
 from flask_cors import CORS
 from Login.login_user import login_user
-from Transfers.transfer import local_transfer
+from Transfers.transfer import local_transfer, interbank_transfer
 from Transfers.find_account import find_account
 from Email.send_email import send_email
 from PDF.gen_pdf import gen_pdf
@@ -20,6 +20,10 @@ CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 app.config['MONGO_URI'] = 'mongodb+srv://isaacmateosv:mongodv@testmongo.1uoiaiv.mongodb.net/horizonbankdb'
 
 mongo = PyMongo(app)
+
+app.config['MONGO_URI'] = 'mongodb+srv://isaacmateosv:mongodv@testmongo.1uoiaiv.mongodb.net/piedpiperdb'
+
+mongo2 = PyMongo(app)
 
 @app.route('/APIRegistrarUsuario', methods=['POST'])
 def registrar_usuario():
@@ -228,6 +232,49 @@ def transferencia_local():
     
     if find_account(destination_account,db):
         if local_transfer(account, destination_account, monto, db):
+            cuenta = db.cuentas.find_one({'id_cuenta': account})
+            cedula = cuenta['cedula']
+            usuario = db.usuarios.find_one({'cedula': cedula})
+            print(usuario['nombres'], account, str(monto))
+            cuerpo = """
+                        Estimado/a {},
+
+                        Le agradecemos por su transferencia por un monto de ${} realizada desde la cuenta XXXXXX{}.
+
+                        Hemos confirmado la recepción de la transferencia y hemos acreditado el monto a su cuenta. 
+                        Le sugerimos que revise su estado de cuenta para confirmar la transacción.
+
+                        Si tiene alguna pregunta o inquietud, no dude en ponerse en contacto con nosotros.
+
+                        Gracias por confiar en nuestros servicios.
+
+                        Atentamente,
+                        Horizon Bank
+                        """.format(usuario['nombres'], str(monto), account[-4:] )
+            archivo = gen_pdf(usuario['cedula'], 'transferencia',
+                      usuario['nombres'], usuario['apellidos'],
+                      cuenta['id_cuenta'], monto, 'none')
+            
+            send_email('Transferencia',usuario['email'], cuerpo, archivo)
+            mydict = {'tipo': 'Transferencia', 'cedula': cedula, 'origen': account, 'destino': destination_account, 'monto': monto}
+            db.transacciones.insert_one(mydict)
+            return {'flag': True, 'message': 'Transaccion Exitosa'}
+        else:
+            return {'flag': False, 'message': 'Saldo Insuficiente'}
+    else:
+        return {'flag': False, 'message': 'Cuenta de Destino no Existe'}
+
+@app.route('/APITransferenciaInterbancaria', methods=['POST'])
+def transferencia_interb():
+    db = mongo.db
+    db2 = mongo2.db
+
+    account = request.json['account']
+    destination_account = request.json['destination_account']
+    monto = request.json['monto']
+    
+    if find_account(destination_account,db2):
+        if interbank_transfer(account, destination_account, monto, db,db2):
             cuenta = db.cuentas.find_one({'id_cuenta': account})
             cedula = cuenta['cedula']
             usuario = db.usuarios.find_one({'cedula': cedula})

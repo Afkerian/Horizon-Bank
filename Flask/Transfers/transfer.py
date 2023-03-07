@@ -7,7 +7,7 @@ def local_transfer(account, destination_account, monto, db):
     #Verificar balance
     saldo = float(check_balance.check_balance(account,db))
 
-    if saldo > monto:
+    if saldo > monto and monto <= 5000:
         print('Saldo suficiente')
         cuentas = db['cuentas']
         
@@ -26,6 +26,42 @@ def local_transfer(account, destination_account, monto, db):
 
         myquery = { "id_cuenta": destination_account }
         newvalues = { "$set": { "saldo": saldo } }
+
+        cuentas.update_one(myquery, newvalues)
+
+        return True
+    else:
+        print('Saldo insuficiente')
+        return False
+
+def interbank_transfer(account, destination_account, monto, db ,db2):
+    print('Transferencia de {} de la cuenta {} hacia {}'.format(monto,account,destination_account))
+
+    monto = float(monto)
+    #Verificar balance
+    saldo = float(check_balance.check_balance(account,db))
+
+    if saldo > monto and monto <= 5000:
+        print('Saldo suficiente')
+        cuentas = db['cuentas']
+        
+        #Nuevo saldo origen
+        saldo = saldo - monto
+
+        myquery = { "id_cuenta": account }
+        newvalues = { "$set": { "saldo": saldo } }
+
+        cuentas.update_one(myquery, newvalues)
+
+        #Nuevo saldo destino
+        saldo = float(check_balance.check_balance(destination_account,db2))
+
+        saldo = saldo + monto
+
+        myquery = { "id_cuenta": destination_account }
+        newvalues = { "$set": { "saldo": saldo } }
+
+        cuentas = db2['cuentas']
 
         cuentas.update_one(myquery, newvalues)
 

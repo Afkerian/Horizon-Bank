@@ -65,6 +65,12 @@ export class CargarService{
         return this._http.get(this.url+'APIObtenerCuentas', {headers:headers});
     }
 
+    transferenciaInter(transferencia:any):Observable<any>{
+        let params=JSON.stringify(transferencia);
+        let headers=new HttpHeaders().set('Content-Type','application/json');
+        
+        return this._http.post(this.url+'APITransferenciaInterbancaria',params, {headers:headers});
+    }
 
     sentAccountState(cedula:string):Observable<any>{
         let queryParams = new HttpParams();

@@ -10,6 +10,7 @@ import { CrearCuentaComponent } from "./components/crear-cuenta/crear-cuenta.com
 import { VerUsuariosComponent } from "./components/ver-usuarios/ver-usuarios.component";
 import { TranferenciaComponent } from "./components/tranferencia/tranferencia.component";
 import { VerCuentasComponent } from "./components/ver-cuentas/ver-cuentas.component";
+import { MiComponenteComponent } from "./components/mi-componente/mi-componente.component";
 
 
 //array de rutas
@@ -25,6 +26,7 @@ const router: Routes = [
     { path: 'mi-cuenta/:cedula', component: CuentaComponent },
     { path: 'transferencia/:id_cuenta', component: TranferenciaComponent},
     { path: 'ver-cuentas', component: VerCuentasComponent},
+    {path: "mi-componente", component: MiComponenteComponent},
     { path: '**', component: InicioComponent } //en caso de error 404, no carga
 
 ];

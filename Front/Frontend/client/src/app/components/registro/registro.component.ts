@@ -9,7 +9,7 @@ import { Registro } from '../../models/registro';
 })
 export class RegistroComponent implements OnInit {
   public reg: Registro;
-  mostrar=false;
+  
   constructor(
     private _cargarservice:CargarService
   ){

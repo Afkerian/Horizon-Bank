@@ -16,7 +16,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let cuenta of this.cuentas; let i = index;">
-                    <th scope="row">{{i}}</th>
+                    <th scope="row">{{i+1}}</th>
                     <td><a [routerLink]="['/transferencia',cuenta.id_cuenta]">{{cuenta.id_cuenta}}</a> </td>
                     <td>{{cuenta.nickname}}</td>
                     <td>{{cuenta.saldo}}</td>
